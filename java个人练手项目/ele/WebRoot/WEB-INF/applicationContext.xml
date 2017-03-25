@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+        http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context-2.5.xsd
+        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd   
+        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
+	<!-- 数据库运行环境 -->
+	<bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
+		<property name="url" value="jdbc:mysql://localhost:3306/restaurant"></property>
+		<property name="username" value="root"></property>
+		<property name="password" value="123456"></property>
+	</bean>
+	<!-- 根据配置文件创建sessionFactory对象 -->
+	<bean id="sessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"></property>
+		<property name="configLocation" value="classpath:MyBatisConfig.xml"></property>
+	</bean>
+	<!-- 配置dao对应 的Bean -->
+	<bean id="userDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.dailingnan.dao.IUserDao"></property>
+		<property name="sqlSessionFactory" ref="sessionFactory"></property>
+	</bean>
+	
+	<bean id="orderDao"  class="org.mybatis.spring.mapper.MapperFactoryBean">
+	      <property name="mapperInterface" value="com.dailingnan.dao.IOrderDao"></property>
+	      <property name="sqlSessionFactory" ref="sessionFactory"></property>
+	</bean>
+	
+	<bean id="order_informationDao"  class="org.mybatis.spring.mapper.MapperFactoryBean">
+	      <property name="mapperInterface" value="com.dailingnan.dao.IOrder_informationDao"></property>
+	      <property name="sqlSessionFactory" ref="sessionFactory"></property>
+	</bean>
+	
+	<bean id="order_res_handleDao"  class="org.mybatis.spring.mapper.MapperFactoryBean">
+	      <property name="mapperInterface" value="com.dailingnan.dao.IOrder_res_handleDao"></property>
+	      <property name="sqlSessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<!-- 配置service对应的Bean -->
+	<bean id="userService" class="com.dailingnan.service.UserService">
+		<property name="dao" ref="userDao"></property>
+	</bean>
+	
+	<bean id="orderService" class="com.dailingnan.service.OrderService">
+	     <property name="dao" ref="orderDao"></property>
+	</bean>
+	
+	<bean id="order_informationService" class="com.dailingnan.service.Order_informationService">
+	     <property name="dao" ref="order_informationDao"></property>
+	</bean>
+	
+	<bean id="order_res_handleService" class="com.dailingnan.service.Order_res_handleService">
+	     <property name="dao" ref="order_res_handleDao"></property>
+	</bean>
+	
+	<!-- 配置Action对应的Bean -->
+	<bean id="orderAction" class="com.dailingnan.action.OrderAction">
+	       <property name="service" ref="orderService"></property>
+	</bean>
+	
+	<bean id="order_informationAction" class="com.dailingnan.action.Order_informationAction">
+	       <property name="service" ref="order_informationService"></property>
+	</bean>
+	
+	<bean id="order_select_resAction" class="com.dailingnan.action.Order_informationAction">
+	      <!--  <property name="service" ref="order_select_resService"></property>--> 
+	</bean>
+	
+	<bean id="order_res_handleAction" class="com.dailingnan.action.Order_res_handleAction">
+	       <property name="service" ref="order_res_handleService"></property>
+	</bean>
+	
+	<bean id="stateUpdateAction" class="com.dailingnan.action.StateUpdateAction">
+	       <property name="service" ref="order_res_handleService"></property>
+	</bean>
+	
+	
+	
+	
+	<bean id="userAction" class="com.dailingnan.action.UserAction">
+		<property name="userService" ref="userService"></property>
+	</bean>
+
+	<bean id="createImageAction" class="com.dailingnan.action.CreateImageAction">
+
+	</bean>
+	<bean id="cartAction" class="com.dailingnan.action.CartAction">
+		<property name="cratService" ref="cartService"></property>
+	</bean>
+	<bean id="cartDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.dailingnan.dao.ICartDao"></property>
+		<property name="sqlSessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<!-- 配置service对应的Bean -->
+	<bean id="cartService" class="com.dailingnan.service.CartService">
+		<property name="dao" ref="cartDao"></property>
+	</bean>
+	
+	<!-- 配置dao对应 的Bean -->
+	<bean id="adminDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.dailingnan.dao.IAdminDao"></property>
+		<property name="sqlSessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<!-- 配置service对应的Bean -->
+	<bean id="adminService" class="com.dailingnan.service.AdminService">
+		<property name="dao" ref="adminDao"></property>
+	</bean>
+	<!-- 配置Action对应的Bean -->
+	<bean id="adminAction" class="com.dailingnan.action.AdminAction">
+		<property name="adminService" ref="adminService"></property>
+	</bean>
+	
+	<!-- aop -->
+	<bean id="myCheck" class="com.dailingnan.aop.MyCheck" />
+
+
+
+<!-- menu -->
+
+
+	
+	
+	<!-- 配置dao对应 的Bean -->
+	
+	<bean id="foodMenuDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.eleme.menumanage.dao.FoodMenuDao"></property>
+		<property name="sqlSessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<!-- 配置service对应的Bean -->
+	<bean id="foodMenuService" class="com.eleme.menumanage.service.FoodMenuService">
+		<property name="fDao" ref="foodMenuDao"></property>
+	</bean>
+	<!-- 配置Action对应的Bean -->
+	<bean id="foodMenuAction" class="com.eleme.menumanage.action.FoodMenuAction" scope="prototype">
+		<property name="fService" ref="foodMenuService"></property>
+		
+	</bean>
+	
+	<!-- etype -->
+	<!-- 配置dao对应 的Bean -->
+	
+	<bean id="etypeDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.eleme.menumanage.dao.EtypeDao"></property>
+		<property name="sqlSessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<!-- 配置service对应的Bean -->
+	<bean id="etypeService" class="com.eleme.menumanage.service.EtypeService">
+		<property name="edao" ref="etypeDao"></property>
+	</bean>
+	<!-- 配置Action对应的Bean -->
+	<bean id="etypeAction" class="com.eleme.menumanage.action.EtypeAction">
+		<property name="eservice" ref="etypeService"></property>
+		
+	</bean>
+	
+	
+	<bean id="accessDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.eleme.menumanage.dao.ErestrantDao"></property>
+		<property name="sqlSessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<!-- 配置service对应的Bean -->
+	<bean id="accessService" class="com.eleme.menumanage.service.RestaurantAccessService">
+		<property name="etDao" ref="accessDao"></property>
+	</bean>
+	<!-- 配置Action对应的Bean -->
+	<bean id="accessAction" class="com.eleme.menumanage.action.RestaurantAccessAction">
+		<property name="IreaccService" ref="accessService"></property>
+	</bean>
+	
+	
+	<bean id="rtDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.eleme.menumanage.dao.RestaurantDao"></property>
+		<property name="sqlSessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<!-- 配置service对应的Bean -->
+	<bean id="slerService" class="com.eleme.menumanage.service.ErestaurnatService">
+		<property name="rDao" ref="rtDao"></property>
+	</bean>
+	<!-- 配置Action对应的Bean -->
+	<bean id="erestaurnats" class="com.eleme.menumanage.action.ErestauntAction">
+		<property name="idService" ref="slerService"></property>
+	</bean>
+	
+	
+	
+	<bean id="showsDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.eleme.menumanage.dao.ShowAssessDao"></property>
+		<property name="sqlSessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<!-- 配置service对应的Bean -->
+	<bean id="showsService" class="com.eleme.menumanage.service.ShowAssessService">
+		<property name="showDao" ref="showsDao"></property>
+	</bean>
+	<!-- 配置Action对应的Bean -->
+	<bean id="assessShow" class="com.eleme.menumanage.action.ShowAssessAction">
+		<property name="showService" ref="showsService"></property>
+	</bean>
+	
+	
+	<bean id="foodsDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.eleme.menumanage.dao.StyleFoodDao"></property>
+		<property name="sqlSessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<!-- 配置service对应的Bean -->
+	<bean id="foodService" class="com.eleme.menumanage.service.StyleFoodService">
+		<property name="stDao" ref="foodsDao"></property>
+	</bean>
+	<!-- 配置Action对应的Bean -->
+	<bean id="styletood" class="com.eleme.menumanage.action.StyleFoodAction">
+		<property name="istService" ref="foodService"></property>
+	</bean>
+	
+	
+	<bean id="fsDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.eleme.menumanage.dao.FoodEvaluateViewDao"></property>
+		<property name="sqlSessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<!-- 配置service对应的Bean -->
+	<bean id="fsService" class="com.eleme.menumanage.service.FoodEvaluateViewService">
+		<property name="foodsDaos" ref="fsDao"></property>
+	</bean>
+	<!-- 配置Action对应的Bean -->
+	<bean id="viewAction" class="com.eleme.menumanage.action.FoodEvaluateViewAction">
+		<property name="viewService" ref="fsService"></property>
+	</bean>
+	
+	
+	
+	<bean id="tyDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.eleme.menumanage.dao.FoodEvaluateDao"></property>
+		<property name="sqlSessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<!-- 配置service对应的Bean -->
+	<bean id="twService" class="com.eleme.menumanage.service.FoodEvaluateService">
+		<property name="inDao" ref="tyDao"></property>
+	</bean>
+	<!-- 配置Action对应的Bean -->
+	<bean id="lastAction" class="com.eleme.menumanage.action.FoodEvaluateAction">
+		<property name="asfood" ref="twService"></property>
+	</bean>
+
+<!-- menu -->
+
+
+
+	<aop:config>
+		<aop:pointcut id="target"
+			expression="execution(java.lang.String com.dailingnan.action.*.*(..))" />
+		<aop:aspect id="myAop" ref="myCheck">
+			<aop:before method="before" pointcut-ref="target" />
+			<aop:after method="after" pointcut-ref="target" />
+			<!-- <aop:around method="around" pointcut-ref="target"/> -->
+		</aop:aspect>
+	</aop:config>
+
+
+</beans>

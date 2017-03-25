@@ -1,0 +1,13 @@
+package com.dailingnan.dao;
+
+import java.util.List;
+
+import com.dailingnan.entity.CinemaBean;
+import com.dailingnan.entity.Discuss;
+
+public interface DiscussDao {
+	public List<Discuss> findDiscussByCin(CinemaBean cinemaBean,int start,int count);
+	public Long findMoveCount(CinemaBean cinemaBean);
+	public Discuss findDiscussById(int discussid);
+	public void deleteDiscussById(Discuss discuss);
+}

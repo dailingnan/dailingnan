@@ -1,0 +1,308 @@
+@charset "utf-8";
+/* CSS Document */
+body,ul,li,ol,h1,h2,h3,h4,h5,h6,p,img,a,table,tr,td,div{ margin:0; padding:0;}
+.top{
+	height:280px;
+	width:100%;
+	}
+.top1{
+	height:35px;
+	width:100%;
+	background:#EEEEEE;}
+
+.top1 ul{
+	list-style-type:none;
+	margin-left:120px;
+	}
+.top ul li{
+	float:left;}
+.top a{
+	text-decoration:none;
+	display:block;
+	text-align:center;
+	width:70px;
+	height:35px;
+	line-height:35px;
+	margin-left:20px;
+	border-right:thin solid #333;
+	color:#666;
+	font-size:12px;
+	}
+.ulright{
+	width:500px;
+	height:35px;
+	float:right;
+	margin-right:90px;}
+.ulright ul{
+	list-style-type:none;}
+.ulright ul li{
+	float:left;}
+.top4{
+	width:100%;
+	height:76px;
+	background:url(../image/64.png);}
+.top2{
+	height:120px;
+	width:100%;
+	overflow:hidden;}
+.top2-1{
+	float:left;
+	height:80px;
+	width:210px;
+	background:url(../image/66.png);
+	margin-left:80px;
+	margin-top:20px;}
+.top2-2{
+	margin-left:400px;
+	height:80px;
+	width:140px;
+	margin-left:300px;
+	margin-top:20px;
+	}
+	
+.top2-3{
+	height:40px;
+	width:700px;
+	float:right;
+	margin-right:80px;
+	margin-top:40px;}
+.top2-3 input{
+	border:3px solid #333;
+	width:450px;
+	height:30px;
+	float:left;}
+.top2-3 button{
+	cursor:pointer;/*显示鼠标的形状,当前是一只手的形状*/
+	border:thin;
+	height:38px;
+	background:#323333;
+	}
+.top2-4{
+	float:left;
+	color:#FFF;
+	margin-top:-30px;
+	margin-left:530px;
+	background:#323333;
+	text-align:center;
+	width:160px;
+	height:30px;}
+.top2-4 a {
+	color:#FFF;
+	margin-left:40px;
+ }
+.top3{
+	height:40px;
+	float:left;
+	border-bottom:1px solid #333;
+	width:100%;
+	}
+.top3-1 ul{
+	
+	list-style-type:none;
+	margin-left:330px;}
+.top3 a{
+	border:thin;
+	font-size:14px;}
+.top3-2{
+	width:260px;
+	height:40px;
+	margin-left:1100px;}
+.top3-2 ul{
+	list-style-type:none;}
+.top3-2 ul li{
+	margin-left:10px;
+	line-height:40px;}
+.top3-2 a{
+	display:block;
+	font-size:14px;
+	
+	}
+.top3-1 a:hover{
+	border-bottom: 5px solid #F03;
+	color:#F03;}
+.content{
+	background:#FFF;
+	width:100%;
+	}
+.content1{
+	overflow:hidden;
+	height:85px;
+	width:880px;
+	margin:auto auto;
+
+	background:#fff;
+	color:#333;
+	filter:progid:DXImageTransform.Microsoft.Shadow(color=#909090,direction=120,strength=3);/*ie*/
+	-moz-box-shadow: 2px 2px 10px #909090;/*firefox*/
+	-webkit-box-shadow: 2px 2px 10px #909090;/*safari或chrome*/
+	box-shadow:2px 2px 10px #909090;/*opera或ie9*/
+}
+.content1-1{
+	color:#666;
+	font-size:14px;
+	margin-top:10px;}
+.content1-3{
+	margin-left:670px;
+	margin-top:15px;
+	color:#666;
+	font-size:14px;}
+.content1-3 a{
+	text-decoration:none;}
+.content1-3 input{
+	border:1px solid #999;
+	color:#666;}
+.content1-22{
+	width:210px;
+	height:43px;
+	background:#222222;
+	color:#FFF;
+	float:left;
+	margin-left:80px;
+	margin-top:-53px;
+	font-size:16px;
+	text-align:center;
+	line-height:43px;
+	}
+.span1{
+	font-size:20px;
+	font-weight:bold;
+	color:#333;}
+.span2{
+	font-size:14px;
+	font-weight:bold;}
+.content1-15{
+	margin-top:10px;
+	margin-left:10px;
+	float:left;
+	}
+.content1-2{
+	overflow:hidden;
+	width:880px;
+	height:430px;
+	margin:auto auto;}
+.content1-4{
+	text-align:right;
+	height:155px;
+	width:100px;
+	margin-top:55px;
+	float:left;
+	margin-left:15px;}
+.content1-4 span{
+	font-size:15px;
+	color:#666;}
+
+.content1-6{
+	margin-top:45px;}
+.content1-7{
+	margin-top:45px;}
+.content7{
+	margin-left:82px;
+	margin-top:35px;}
+.content8{
+	height:90px;
+	width:300px;
+	text-indent:60px;
+	line-height:90px;
+	background:#F7F7F7;
+	border:1px solid #CCC;
+	float:left;}
+.content1-10{
+	float:left;
+	margin-left:50px;
+	height:240px;
+	width:325px;
+	margin-top:50px;
+	background:url(../image/89213e5b-b2c3-4ce8-a2de-162b271fba10.jpg);}
+.content1-5{
+	width:370px;
+	height:300px;
+	float:left;
+	margin-left:20px;
+	margin-top:55px;}
+.content1-5 input{
+	width:290px;
+	height:30px;
+	border:1px solid #666;}
+.content1-11 input{
+	width:170px;}
+.content1-11{
+	float:left;
+	}
+.content1-9{
+	font-size:14px;
+	color:#666;
+	margin-top:5px;}
+.content1-12{
+	margin-left:10px;
+	float:left;}
+.content1-14 button{
+	width:130px;
+	height:35px;
+	border:1px solid #82002D;
+	color:#FFF;
+	margin-top:30px;
+	font-weight:bold;
+	font-size:14px;
+	background:#DC014C;}
+.content8 span{
+	font-size:12px;
+	color:#999;}
+.content8 strong{
+	color:#f03;}
+.content8 h6{
+	height:10px;
+	margin-top:-70px;
+	color:#999;
+	}
+	
+.bottom{
+	margin-top:160px;
+	height:165px;}
+.bottom1{
+	width:1220px;
+	height:45px;
+	
+	margin-left:240px;
+ }
+.bottom1 ul{
+	list-style:none;}
+.bottom1 ul li{
+	float:left;
+	}
+.bottom1 a{
+	text-decoration:none;
+	color:#999;
+	margin-left:10px;
+	font-size:14px;
+	display:block;	
+	width:75px;
+	line-height:45px;
+	}
+.bottom1 a:hover{
+	color:#f03}
+.bottom1 img {
+	float:right;
+	width:5px;
+	height:20px;
+	margin-top:10px;}
+.bottom2{
+	width:620px;
+	height:55px;
+	margin-left:400px;
+	margin-top:30px;}
+.bottom2 h6{
+	margin-top:10px;
+	text-align:center;
+	color:#999;}
+.bottom3{
+	height:60px;
+	width:340px;
+	margin:auto auto;}
+.bottom3 img{
+	margin-top:7px;
+	margin-left:30px;}
+.bottom4{
+	margin-right:30px;
+	float:right;
+	margin-top:-50px;}
+

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="com.dailingnan.dao.IOrder_informationDao">
+          <!-- 查询所有 订单详情 --><!-- 联合查询 -->
+          <resultMap type="order_informationBean" id="order_informationMap">
+               <id property="lid" column="lid"/>
+               <result property="counts" column="counts"/>
+               <result property="subtotal" column="subtotal"/>
+               <result property="oid" column="oid"/>
+               <association property="foodbean" column="fid" javaType="food">
+                      <id property="fid" column="fid"/>
+                      <result property="fname" column="fname"/>
+                      <result property="sid" column="sid"/>
+                      <result property="introduce" column="introduce"/>
+                      <result property="price" column="price"/>
+                      <result property="img" column="img"/>
+                      <result property="eid" column="eid"/>
+               </association>
+               <association property="res" column="eid" javaType="restaurant">
+                      <id property="eid" column="eid"/>
+                      <result property="tid" column="tid"/>
+                      <result property="ename" column="ename"/>
+                      <result property="eaddress" column="eaddress"/>
+                      <result property="img" column="img"/>
+               </association>
+          </resultMap>
+          	 <!-- 订单和商品map对象 -->
+  	<resultMap type="orderitem" id="orderitemMap">
+  		<id property="lid" column="lid"/>
+  		<result property="counts" column="counts"/>
+  		<result property="subtotal" column="subtotal"/>
+  		<result property="oid" column="oid"/>
+  		<association property="fd" column="fid" javaType="food">
+  			<id property="fid" column="fid"/>
+  			<result property="fname" column="fname"/>
+  			<result property="img" column="img"/>
+  			<result property="price" column="price"/>
+  		</association>
+  	</resultMap>
+         <select id="find" parameterType="String" resultMap="order_informationMap">
+            select * from orderlist  inner join foodmenu
+              on orderlist.fid=foodmenu.fid 
+              inner join erestaurant on orderlist.eid=erestaurant.eid
+              where oid=#{id}
+         </select>
+</mapper>

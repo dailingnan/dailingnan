@@ -1,0 +1,128 @@
+package com.dailingnan.dao.impl;
+
+import java.util.List;
+
+import javax.annotation.Resource;
+
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.springframework.stereotype.Repository;
+
+import com.dailingnan.dao.AdminDao;
+import com.dailingnan.entity.AdminBean;
+import com.dailingnan.entity.CinemaBean;
+import com.dailingnan.entity.MoveArrangeBean;
+import com.dailingnan.entity.MoveBean;
+
+@Repository
+public class AdminDaoImpl implements AdminDao{
+	@Resource
+	private SessionFactory sessionFactory;
+	//分页查询该电影院对应的电影
+	public List<MoveBean> findMoveByCina(CinemaBean cinemaBean,int start,int count) {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.openSession();
+		String hql = "from MoveBean move where move.cinema.cinemaid = :cineamid";
+		Query query = session.createQuery(hql).setFirstResult(start).setMaxResults(count);
+		query.setParameter("cineamid", cinemaBean.getCinemaid());
+		List<MoveBean> moveBeans = query.list();
+		session.close();
+		return moveBeans;
+	}
+	//查询对应电影院的电影数量
+	public Long findMoveCount(CinemaBean cinemaBean) {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.openSession();
+		String hql = "select count(move) from MoveBean move where move.cinema.cinemaid=:cinemaid";
+		Query query = session.createQuery(hql);
+		query.setParameter("cinemaid", cinemaBean.getCinemaid());
+		Long count = (Long) query.uniqueResult();
+		session.close();
+		return count;
+	}
+	public void updateMoveById(MoveBean moveBean) {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.openSession();
+		Transaction transaction = session.beginTransaction();
+		
+		session.update(moveBean);
+		
+		transaction.commit();
+		session.close();
+	}
+	public void deleteMoveById(MoveBean moveBean) {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.openSession();
+		Transaction transaction = session.beginTransaction();
+		session.delete(moveBean);
+		transaction.commit();
+		session.close();
+	}
+	public void addMove(MoveBean moveBean) {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.openSession();
+		Transaction transaction = session.beginTransaction();
+		session.save(moveBean);
+		transaction.commit();
+		session.close();
+	}
+	
+	public List<MoveArrangeBean> findMoveArrangeByCinId(CinemaBean cinemaBean,int start,int count) {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.openSession();
+		String hql = "from MoveArrangeBean mag where mag.cinema.cinemaid=:cineamid ";
+		Query query = session.createQuery(hql).setFirstResult(start).setMaxResults(count);
+		query.setParameter("cineamid", cinemaBean.getCinemaid());
+		List<MoveArrangeBean> moveArrangeBeans = query.list();
+		session.close();
+		return moveArrangeBeans;
+	}
+	public Long findMoveArrangeCount(CinemaBean cinemaBean) {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.openSession();
+		String hql = "select count(mag) from MoveArrangeBean mag where mag.cinema.cinemaid=:cinemaid";
+		Query query = session.createQuery(hql);
+		query.setParameter("cinemaid", cinemaBean.getCinemaid());
+		Long count = (Long) query.uniqueResult();
+		session.close();
+		return count;
+	}
+	public void updateMoveArrangeById(MoveArrangeBean moveArrangeBean) {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.openSession();
+		Transaction transaction = session.beginTransaction();
+		session.update(moveArrangeBean);
+		transaction.commit();
+		session.close();
+	}
+	public void deleteMoveArrangeById(MoveArrangeBean moveArrangeBean) {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.openSession();
+		Transaction transaction = session.beginTransaction();
+		session.delete(moveArrangeBean);
+		transaction.commit();
+		session.close();
+	}
+	public void addMoveArrange(MoveArrangeBean arrangeBean) {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.openSession();
+		Transaction transaction = session.beginTransaction();
+		session.save(arrangeBean);
+		transaction.commit();
+		session.close();
+	}
+	public AdminBean findAdminByNameandPwd(String username, String password) {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.openSession();
+		String hql = "from AdminBean  where username=:username and password=:password";
+		Query query = session.createQuery(hql);
+		query.setParameter("username", username);
+		query.setParameter("password", password);
+		AdminBean adminBean = (AdminBean) query.uniqueResult();
+		session.close();
+		return adminBean;
+	}
+
+}

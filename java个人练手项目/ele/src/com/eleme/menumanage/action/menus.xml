@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<constant name="struts.i18n.encoding" value="UTF-8" />
+	 <constant name="struts.multipart.maxSize" value="10701096"/>
+	<constant name="struts.enable.DynamicMethodInvocation" value="true" />
+    <constant name="struts.devMode" value="true" />
+	<constant name="struts.objectFactory" value="spring"></constant>
+	<package name="main7" namespace="/menu" extends="struts-default">
+	<!-- foodmenu -->
+	<action name="selecasses" class="assessShow" method="selecasses">
+			<result name="selecasses">/menu/do1.jsp</result>
+		</action>
+		
+		<action name="addQu" class="accessAction" method="insertIt">
+			<result name="insertIt" type="redirectAction">
+				<param name="actionName">sele</param>
+				<param name="namespace">/menu</param>
+				<param name="eidnums">${eidnums}</param>
+			</result>
+		</action>
+		
+		<action name="foodMenuActions" class="foodMenuAction" method="selectMenus">
+			<result name="list">/menu/food.jsp</result>
+		</action>
+		<action name="insertu" class="lastAction" method="insertu">
+			<result name="insertu" type="redirectAction">
+				<param name="actionName">sele?eidnums=</param>
+				<param name="namespace">/menu</param>
+				<param name="eidnums">${eidnums}</param>
+			</result>
+		</action>
+		
+		
+		<action name="foodMenuAction1" class="foodMenuAction" method="updateFood">
+			<result name="update" type="redirectAction">
+				<param name="actionName">foodMenuActions</param>
+				<param name="namespace">/menu</param>
+			</result>
+		</action>
+		<action name="selectList" class="styletood" method="selectList">
+			<result name="selectList">/menu/addfood.jsp</result>
+		</action>
+		<action name="foodMenuAction2" class="foodMenuAction" method="insertFood">
+			<result name="insert" type="redirectAction">
+				<param name="actionName">foodMenuActions</param>
+				<param name="namespace">/menu</param>
+			</result>
+		</action>
+		
+		<action name="foodMenuAction3" class="foodMenuAction" method="deleteFood">
+			<result name="deleteFood" type="redirectAction">
+				<param name="actionName">foodMenuActions</param>
+				<param name="namespace">/menu</param>
+			</result>
+		</action>
+		
+		<!-- etype -->
+		<action name="etypeActione" class="etypeAction" method="selectE">
+			<result name="selectE">/menu/etype.jsp</result>
+		</action>
+		
+		
+		<action name="etypeAction1" class="etypeAction" method="updateE">
+			<result name="updateE" type="redirectAction">
+				<param name="actionName">etypeActione</param>
+				<param name="namespace">/menu</param>
+			</result>
+		</action>
+		<!--餐馆评价 -->
+		<action name="selectRy" class="erestaurnats" method="selectRy">
+			<result name="selectRy">/menu/arestaurnat.jsp</result>
+		</action>
+		
+		
+		<action name="selectViewes" class="viewAction" method="selectViewes">
+			<result name="selectViewes">/menu/su.jsp</result>
+		</action>
+		
+		
+		<action name="selectacse" class="viewAction" method="selectacse">
+			<result name="selectacse">/menu/do.jsp</result>
+		</action>
+		
+		
+		<action name="updateRy" class="erestaurnats" method="updateRy">
+				<result name="updateRy" type="redirectAction">
+				<param name="actionName">selectRy</param>
+				<param name="namespace">/menu</param>
+			</result>
+		</action>
+		
+		<action name="sele" class="viewAction" method="sele">
+			<result name="sele">/menu/su.jsp</result>
+		</action>
+		
+		<action name="assessShow" class="assessShow" method="selectShow">
+			<result name="selectShow">/menu/assessShow.jsp</result>
+		</action>
+		
+	</package>
+
+	<package name="main1" namespace="/menu1" extends="struts-default">
+		<action name="selectQu" class="accessAction" method="selectIt">
+			<result name="selectIt">/menu/access.jsp</result>
+		</action>
+		
+		<action name="addQu" class="accessAction" method="insertIt">
+			<result name="insertIt"></result>
+		</action>
+		<action name="deleteQu" class="accessAction" method="deleteIt">
+			<result name="deleteIt" type="redirectAction">
+			<param name="actionName">selectQu</param>
+			<param name="namespace">/menu1</param>
+			</result>
+		</action>
+		
+		
+		<action name="selectStyles" class="styletood" method="selcetStyles">
+			<result name="tStyle">/menu/stylefood.jsp</result>
+		</action>
+		
+		<action name="updateStyles" class="styletood" method="updateStyles">
+			<result name="Style" type="redirectAction">
+			<param name="actionName">selectStyles</param>
+			<param name="namespace">/menu1</param>
+			</result>
+		</action>
+		
+	</package>
+	
+	
+	<package name="main2" namespace="/menu2" extends="struts-default">
+		<action name="selectViews" class="viewAction" method="selectViews">
+			<result name="selectViews">/menu/view.jsp</result>
+		</action>
+		
+		
+		
+		
+	</package>
+	
+	
+</struts>

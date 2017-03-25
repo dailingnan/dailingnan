@@ -1,0 +1,44 @@
+package com.dailingnan.service.impl;
+
+import javax.annotation.Resource;
+
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.dailingnan.dao.UserDao;
+import com.dailingnan.entity.User;
+import com.dailingnan.service.UserService;
+@Service("userService")
+@Transactional
+public class UserServiceImpl implements UserService {
+	@Resource
+	private UserDao<User> userDao;
+	public User save(User user) {
+		// TODO Auto-generated method stub
+		System.out.println(user);
+		return userDao.save(user);
+	}
+	public User finduserById(int id) {
+		// TODO Auto-generated method stub
+		return userDao.finduserById(id);
+	}
+	public String findOneUser(String username, String password) {
+		// TODO Auto-generated method stub
+		String text;
+		if(userDao.findOneUser(username, password)!=null){
+			text = "0";
+		}else{
+			text = "1";
+		}
+		return text;
+	}
+	
+	public User findOneUsers(String username, String password) {
+		// TODO Auto-generated method stub
+		
+		User user =userDao.findOneUser(username, password);
+		
+		return user;
+	}
+
+}

@@ -1,0 +1,92 @@
+package com.dailingnan.controller;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import com.dailingnan.entity.MoveArrangeBean;
+import com.dailingnan.entity.MoveBean;
+import com.dailingnan.entity.OrderBean;
+import com.dailingnan.entity.OrderItemBean;
+import com.dailingnan.entity.User;
+import com.dailingnan.service.CinemaService;
+
+import net.sf.json.JSONArray;
+@Controller
+public class CinemaController {
+	@Resource
+	private CinemaService cinemaService;
+	
+	//选座
+	@RequestMapping("cart")
+	public String findMoveArrange(@RequestParam int marrangeid,HttpServletRequest request ){
+		List<OrderItemBean> list = cinemaService.findSeat(marrangeid);
+		MoveArrangeBean moveArrangeBean =cinemaService.findMoveById(marrangeid);
+		request.setAttribute("moveArrangeBean", moveArrangeBean);
+		request.setAttribute("orderitems", list);
+		request.setAttribute("marrangeid", marrangeid);
+		return "/jsp/cart.jsp";
+	}
+	//ajax读取已被选择的座位
+	@RequestMapping("seat")
+	public void findSeat(HttpServletResponse response,@RequestParam int marrangeid) throws IOException{
+		List<OrderItemBean> list = cinemaService.findSeat(marrangeid);
+		List<Integer> seat =new ArrayList<Integer>();
+		for(int i=0;i<list.size();i++){
+			seat.add(list.get(i).getSeat());
+		}
+		//将座位信息转换成json数组响应给页面
+		JSONArray jsonArray = JSONArray.fromObject(seat);
+		response.setCharacterEncoding("utf-8");
+		response.getWriter().println(jsonArray);//返回信息
+		response.getWriter().close();
+	}
+	
+	//生成订单
+	@RequestMapping("insertOrder")
+	public String insert(@RequestParam int[] cartitem,@RequestParam int marrangeid,HttpServletRequest request){
+		HttpSession session = request.getSession();
+		//从session中获取用户
+		User user = new User();
+		user.setUid(1);
+		//根据marrangeid查询marrange对象
+		MoveArrangeBean moveArrangeBean =cinemaService.findMoveById(marrangeid);
+		//插入订单
+		OrderBean orderBean = new OrderBean(user,moveArrangeBean,moveArrangeBean.getMove().getPrice()*cartitem.length,0);
+		
+		OrderBean orderBean2 =cinemaService.insertOrder(orderBean);
+		//插入订单子项
+		for (int i : cartitem) {
+			OrderItemBean orderItemBean = new OrderItemBean();
+			orderItemBean.setOrder(orderBean2);
+			orderItemBean.setSeat(i);
+			cinemaService.insertOrderItem(orderItemBean);
+		}
+		
+		//查询该用户对应该场次的订票情况
+		List<OrderItemBean> orderItems = cinemaService.findOrderItemByUid(user.getUid(), marrangeid);
+		System.out.println(orderItems.size());
+		request.setAttribute("moveArrangeBean",moveArrangeBean);
+		request.setAttribute("orderItems",orderItems);
+		return "/jsp/besure.jsp";
+		
+	}
+	
+	@RequestMapping("updateState")
+	public String updateOrderState(@RequestParam int oid){
+		OrderBean orderBean =cinemaService.findOrderByoid(oid);
+		orderBean.setState(1);
+		cinemaService.updateOrderStateByOid(orderBean);
+		return "/test.jsp";
+	}
+	
+}

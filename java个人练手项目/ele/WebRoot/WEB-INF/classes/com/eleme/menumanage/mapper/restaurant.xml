@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    <mapper namespace="com.eleme.menumanage.dao.ErestrantDao">
+    
+    <insert id="addRe" parameterType="erestaurant" keyColumn="raid" useGeneratedKeys="true">
+    	insert into restaurantassess(eid,marked) values(#{eid},#{marked})
+    </insert>
+    <resultMap type="erestaurant" id="sec">
+    	<id column="raid" property="raid"/>
+    	<result column="eid" property="eid"/>
+    	<result column="marked" property="marked"/>
+    </resultMap>
+    <select id="selectAcc" resultMap="sec" parameterType="int">
+    	select raid,eid,marked from restaurantassess where eid=#{eid}
+    </select>
+    <delete id="deleteRe" parameterType="int">
+    	delete from restaurantassess where raid=#{raid}
+    </delete>
+    
+    </mapper>

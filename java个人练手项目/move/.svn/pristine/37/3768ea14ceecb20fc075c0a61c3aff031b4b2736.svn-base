@@ -1,0 +1,52 @@
+package com.dailingnan.service;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.annotation.Resource;
+
+import org.springframework.stereotype.Repository;
+
+import com.dailingnan.dao.OrderDao;
+import com.dailingnan.entity.CinemaBean;
+import com.dailingnan.entity.OrderBean;
+import com.dailingnan.entity.OrderItemBean;
+import com.dailingnan.entity.User;
+
+@Repository
+public class OrderServiceImpl implements OrderService{
+	@Resource
+	private OrderDao orderDao;
+
+	public List<OrderBean> findOrderByCin(CinemaBean cinemaBean,int rows,int page) {
+		// TODO Auto-generated method stub
+		return orderDao.findOrderByCin(cinemaBean,(page-1)*rows, rows);
+	}
+
+	public Long findMoveCount(CinemaBean cinemaBean) {
+		// TODO Auto-generated method stub
+		return orderDao.findMoveCount(cinemaBean);
+	}
+
+	public Map<String, Object> findOrderAndOrderItem(User user) {
+		// TODO Auto-generated method stub
+		//转换时间格式
+		Map<String,Object> map = new HashMap<String, Object>();
+		List<OrderBean> orderBeans = orderDao.findOrders(user.getUid());
+		List<OrderItemBean> list = new ArrayList<OrderItemBean>();
+		for (OrderBean orderBean : orderBeans) {
+			List<OrderItemBean> orderItemBeans = orderDao.findOrderItems(orderBean.getOrderid());
+			for (OrderItemBean orderItemBean : orderItemBeans) {
+				list.add(orderItemBean);
+			}
+		}
+		map.put("orderBeans", orderBeans);
+		map.put("orderItemBeans", list);
+		return map;
+	}
+
+	
+}

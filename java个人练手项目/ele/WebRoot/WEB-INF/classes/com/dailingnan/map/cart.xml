@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dailingnan.dao.ICartDao">
+	  <!-- 购物车和商品map对象 -->
+  	<resultMap type="cart" id="cartMap">
+  		<id property="gcid" column="gcid"/>
+  		<result property="num" column="num"/>
+  		<result property="total" column="total"/>
+  		<result property="uid" column="uid"/>
+  		<association property="fd" column="fid" javaType="food">
+  			<id property="fid" column="fid"/>
+  			<result property="fname" column="fname"/>
+  			<result property="img" column="img"/>
+  			<result property="price" column="price"/>
+  		</association>
+  	</resultMap>
+  	 <!-- 订单和商品map对象 -->
+  	<resultMap type="orderitem" id="orderitemMap">
+  		<id property="lid" column="lid"/>
+  		<result property="counts" column="counts"/>
+  		<result property="subtotal" column="subtotal"/>
+  		<result property="oid" column="oid"/>
+  		<association property="fd" column="fid" javaType="food">
+  			<id property="fid" column="fid"/>
+  			<result property="fname" column="fname"/>
+  			<result property="img" column="img"/>
+  			<result property="price" column="price"/>
+  		</association>
+  	</resultMap>
+	<!--查询购物车-->
+  	  <select id="findCart" resultType="cart">
+  	  		select * from goodscart  
+  	  </select>
+  	<!--根据id查询购物车-->
+  	  <select id="findCartByid" resultType="cart" parameterType="String">
+  	  		select * from goodscart  where gcid = #{gcid}
+  	  </select>
+  	 <!-- 增加购物车 -->
+  	 <insert id="addCart" parameterType="cart" >
+  	 	INSERT INTO goodscart(fid,num,total,uid)VALUES(#{fid},#{num},#{total},#{uid})
+  	 </insert>
+  	 <!-- 查询食品 -->
+  	 <select id="findFood" parameterType="int" resultType="food">
+  	 	select * from foodmenu where fid = #{fid}
+  	 </select>
+  	 <!-- 查询购物车中是否已含有某种商品 -->
+  	 <select id="findFoid" parameterType="String" resultType="cart">
+  	 	select * from goodscart where fid=#{fid}
+  	 </select>
+  	 <!-- 购物车和商品联合查询 -->
+  	 <select id="findcart" parameterType="int" resultMap="cartMap">
+  	 	SELECT * FROM goodscart left JOIN foodmenu on goodscart.`fid` = foodmenu.`fid`
+  	 	where uid =#{uid}
+  	 </select>
+  	 	<!-- 插入订单 -->
+  	 	<insert id="insertOrder" parameterType="order">
+  	 		INSERT INTO orders(oid,ordertime,ordertotal,state,uid,arderadd)VALUES(#{oid},NOW(),#{ordertotal},#{state},#{uid},#{arderadd})
+  	 	</insert>
+  	 	<!-- 插入订单项 -->
+  	 	<insert id="insertOrderItem" parameterType="orderitem">
+  	 		INSERT INTO orderlist (counts,subtotal,oid,fid)VALUES(#{counts},#{subtotal},#{oid},#{fid})
+  	 	</insert>
+  	 	<!--删除购物车对应的条目 -->
+  	 	<delete id="deleteCart" parameterType="String" >
+  	 		delete from goodscart where gcid  =#{gcid}
+  	 	</delete>
+  	 	<!-- 购物车增加数量 -->
+  	 	<update id="updateadd" parameterType="String">
+  	 		UPDATE goodscart SET num = num+1,total = total/(num-1)*(num) WHERE gcid = #{gcid} 	
+  	 	</update>
+  	 	<!-- 购物车减少数量 -->
+  	 	<update id="updatedec" parameterType="String">
+  	 		UPDATE goodscart SET num = num-1,total = total/(num+1)*(num) WHERE gcid = #{gcid}
+  	 	</update>
+  	 <!-- 查询订单项-->
+  	 	<select id="findorderitem" parameterType="String" resultMap="orderitemMap">
+  	 		SELECT * FROM orderlist left JOIN foodmenu on orderlist.`fid` = foodmenu.`fid` where oid = #{oid}
+  	 	</select>
+  	 <!-- 查询订单 -->
+  	 	<select id="findorderByid" parameterType="String" resultType="order">
+  	 		select * from orders where oid = #{oid}
+  	 	</select>
+  	 <!-- 查询地址 -->
+  	 	<select id="findaddress" resultType="addressBean" parameterType="String">
+  	 		select * from useraddress where uid=#{uid}
+  	 	</select>
+  	 <!-- 更新订单表地址 -->
+  	 	<update id="updateaddress" parameterType="order">
+  	 		UPDATE orders SET arderadd=#{arderadd} WHERE oid = #{oid}
+  	 	</update>
+  	<!-- 查询购物车 uid对应fid的数量-->
+  		<select id="findfidByuid" parameterType="cart" resultType="cart">
+  			select * from goodscart where uid=#{uid} and fid=#{fid}
+  		</select>
+  	<!-- 更新购物车uid对应的fid数量 -->
+  		<update id="updatecountByfid" parameterType="cart">
+  			UPDATE goodscart SET num = num+1,total=#{total} WHERE uid = #{uid} and fid=#{fid}
+  		</update>
+  	<!-- 根据时间段查询订单 -->
+  		<select id="findorderBydate" parameterType="java.util.HashMap" resultType="order">
+  			SELECT * FROM orders WHERE ordertime>=#{startTime} AND ordertime&lt;=#{endTime} 
+  		</select>
+  	<!-- 根据特定时间查询某一天订单 -->
+  		<select id="findorderBydt" parameterType="String" resultType="order">
+  			SELECT * FROM orders WHERE ordertime LIKE #{data}
+  		</select>
+  		
+</mapper>

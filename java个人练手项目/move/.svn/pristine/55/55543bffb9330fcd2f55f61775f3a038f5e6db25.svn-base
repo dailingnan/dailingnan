@@ -1,0 +1,42 @@
+package com.daiingnan.interceptor;
+
+import java.util.List;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.web.servlet.HandlerInterceptor;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.dailingnan.entity.OrderBean;
+import com.dailingnan.service.CinemaService;
+
+public class SeatInterceptor implements HandlerInterceptor {
+	@Resource
+	private CinemaService cinemaService;
+	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
+			throws Exception {
+		// TODO Auto-generated method stub
+		String marrangeid =request.getParameter("marrangeid");
+		int marid = Integer.parseInt(marrangeid);
+		List<OrderBean> orderBeans = cinemaService.findOrderByState(marid);
+		cinemaService.updateStateAuto(orderBeans);
+		return true;
+	}
+
+	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
+			ModelAndView modelAndView) throws Exception {
+		System.out.println("×ùÎ»À¹½ØÆ÷³öÀ´");
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex)
+			throws Exception {
+		System.out.println("×ùÎ»À¹½ØÆ÷½áÊø");
+		// TODO Auto-generated method stub
+		
+	}
+
+}

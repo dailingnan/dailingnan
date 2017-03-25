@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    <mapper namespace="com.eleme.menumanage.dao.RestaurantDao">
+    	<select id="selectRest" parameterType="int" resultType="erestaurants">
+    		select * from erestaurant where eid=#{eid}
+    	</select>
+    	
+    	<update id="updateRest" parameterType="erestaurants">
+    		update erestaurant set eaddress=#{eaddress},img=#{img} where eid=#{eid}
+    	</update>
+    
+    </mapper>
+    

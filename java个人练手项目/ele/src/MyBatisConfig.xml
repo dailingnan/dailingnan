@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+
+<!DOCTYPE configuration
+    PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+	<typeAliases>
+		<typeAlias type="com.dailingnan.pojo.AddressBean" alias="addressBean"/>
+		<typeAlias type="com.dailingnan.pojo.OrderItemBean" alias="orderitem"/>
+		<typeAlias type="com.dailingnan.pojo.OrderBean" alias="order"/>
+		<typeAlias type="com.dailingnan.pojo.Cart" alias="cart"/>
+		<typeAlias type="com.dailingnan.pojo.UserBean" alias="userBean"/>
+		<typeAlias type="com.dailingnan.pojo.FoodBean" alias="food"/>
+		<typeAlias type="com.dailingnan.pojo.AdminBean" alias="admin"/>
+		
+		<typeAlias type="com.eleme.menumanage.pojo.FoodMenu" alias="foodMenu"/>
+		<typeAlias type="com.eleme.menumanage.pojo.Etype" alias="etype"/>
+		<typeAlias type="com.eleme.menumanage.pojo.RestaurantAssess" alias="erestaurant"/>
+		<typeAlias type="com.eleme.menumanage.pojo.Erestaurant" alias="erestaurants"/>
+		<typeAlias type="com.eleme.menumanage.pojo.ShowAssess" alias="showassess"/>
+		<typeAlias type="com.eleme.menumanage.pojo.StyleFood" alias="foodd"/>
+		
+		<typeAlias type="com.dailingnan.pojo.Order_informationBean" alias="order_informationBean"/>
+		<typeAlias type="com.dailingnan.pojo.Restaurant" alias="restaurant"/>
+	</typeAliases>
+  
+
+  <mappers>
+	    <mapper resource="com/dailingnan/map/User.xml"/>
+	   	<mapper resource="com/dailingnan/map/cart.xml"/>
+	   	<mapper resource="com/dailingnan/map/admin.xml"/>
+	   	
+	   	<mapper resource="com/eleme/menumanage/mapper/foodmenu.xml"/>
+	    <mapper resource="com/eleme/menumanage/mapper/etype.xml"/>
+	    <mapper resource="com/eleme/menumanage/mapper/restaurant.xml"/>
+	    <mapper resource="com/eleme/menumanage/mapper/erestaunt.xml"/>
+	    <mapper resource="com/eleme/menumanage/mapper/showassess.xml"/>
+	    <mapper resource="com/eleme/menumanage/mapper/Stylefoold.xml"/>
+	    <mapper resource="com/eleme/menumanage/mapper/foodview.xml"/>
+	    <mapper resource="com/eleme/menumanage/mapper/evaluate.xml"/>
+	   	
+	   	<mapper resource="com/dailingnan/map/Order.xml"/>
+	    <mapper resource="com/dailingnan/map/Order_information.xml"/>
+	    <mapper resource="com/dailingnan/map/Order_res_handle.xml"/>
+	   	
+  </mappers>
+
+</configuration>

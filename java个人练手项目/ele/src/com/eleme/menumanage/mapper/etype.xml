@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    <mapper namespace="com.eleme.menumanage.dao.EtypeDao">
+    
+    <select id="selectEt" resultType="etype">
+    	select * from etype
+    </select>
+    
+    <update id="updateEt" parameterType="etype">
+    	update etype set tname=#{tname} where tid=#{tid}
+    </update>
+    
+    </mapper>

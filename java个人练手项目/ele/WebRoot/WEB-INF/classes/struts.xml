@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<include file="com/eleme/menumanage/action/menus.xml"></include>
+	<constant name="struts.objectFactory" value="spring"></constant>
+	<!-- 全局拦截器 -->
+	<package name="all" extends="struts-default">
+        <interceptors>
+            <!-- 定义权限控制拦截器 -->
+            <interceptor name="quanxian"
+                class="com.dailingnan.fliter.LoginInterceptor" />
+            <!-- 定义一个包含权限控制的拦截器栈 -->
+            <interceptor-stack name="mydefault">
+                <interceptor-ref name="defaultStack" />
+                <interceptor-ref name="quanxian" />
+            </interceptor-stack>
+        </interceptors>
+        <!-- 定义默认拦截器 -->
+        <default-interceptor-ref name="mydefault" />
+    </package>
+	
+	<!--  用户包-->
+	<package name="main" extends="struts-default" >
+	
+	
+	  <!-- jie de action -->
+	   <action name="orderAction" class="orderAction">
+	       <result name="success">/order.jsp</result>
+	    </action>
+	    
+	    <action name="order_informationAction" class="order_informationAction">
+	       <result name="success">/order_information.jsp</result>
+	    </action>
+	    <action name="order_informationAction_f" class="order_informationAction"  method="fenye">
+	       <result name="fenye">/order_information.jsp</result>
+	    </action>
+	    
+	    <action name="order_res_handle" class="order_res_handleAction">
+	       <result name="success">/order_res_handle.jsp</result>
+	    </action>
+	    
+	    <action name="stateUpdateAction" class="stateUpdateAction">
+	       <result name="success">/order_res_handle.jsp</result>
+	    </action>
+	    <action name="stateUpdateAction_2" class="stateUpdateAction" method="pay">
+	    </action>
+	    
+	    
+	    <action name="order_select_resAction" class="order_select_resAction">
+	       <result name="success">/order_select_res.jsp</result>
+	    </action>
+<!-- -->
+	   
+	   
+		<action name="*Action" class="userAction" method="{1}">
+			<result name="success">/index.jsp</result>
+			<result name="fail">/fail.jsp</result>
+			<result name="input">/denglu.jsp</result>
+		</action>
+		<action name="cartAction" class="cartAction" >
+			<result name="success">/index.jsp</result>
+			<result name="fail">/fail.jsp</result>
+			<result name="input">/denglu.jsp</result>
+		</action>
+		<action name="addcartAction" class="cartAction" method="find" >
+			<result name="success">/index.jsp</result>
+			<result name="fail">/fail.jsp</result>
+			<result name="input">/denglu.jsp</result>
+		</action>
+		<action name="createImageAction" class="createImageAction">
+			<result name="success" type="stream">
+				<param name="contentType">image/jpeg</param>
+				<param name="inputName">inputStream</param>
+			</result>
+		</action>
+		<action name="loginValidateAction" class="com.dailingnan.action.LoginValidateAction">
+			<result name="success">/success.jsp</result>
+			<result name="input">/login.jsp</result>
+		</action>
+	</package>
+	
+	<!-- Add packages here -->
+	<package name="cart" extends="all" namespace="/ele">
+		<action name="*Action" class="cartAction" method="{1}">
+			<result name="query" >/ele/gouwuche.jsp</result>
+			<result name="query1" >/ele/gouwuche1.jsp</result>
+			<result name="query2">/ele/test.jsp</result>
+			<result name="login">/ele/denglu.jsp</result>
+			<result name="besure">/ele/BesureOrder.jsp</result>
+			<result name="queryorder">/ele/orderselect.jsp</result>
+		</action>
+	</package>
+	
+	<package name="admin" extends="struts-default" namespace="/admin">
+		<action name="*Action" class="adminAction" method="{1}">
+			<result name="fail">/ele/houtai/login.jsp</result>
+			<result name="main">/ele/houtai/main.jsp</result>
+		</action>
+	</package>
+	
+	
+	
+</struts>

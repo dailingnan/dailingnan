@@ -1,0 +1,8 @@
+.a1{
+	display: block;
+	width: 150px;
+	height: 100px;
+	border: 1px solid red;
+	text-align: center;
+	line-height: 100px;
+}

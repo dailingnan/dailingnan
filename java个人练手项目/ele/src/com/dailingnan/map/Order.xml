@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="com.dailingnan.dao.IOrderDao">
+          <!-- 查询所有 订单 -->
+         <select id="findOrder" resultType="order">
+            select * from orders 
+         </select>
+</mapper>
+
+
+

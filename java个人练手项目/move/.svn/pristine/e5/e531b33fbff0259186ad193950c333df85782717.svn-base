@@ -1,0 +1,106 @@
+package com.dailingnan.service.impl;
+
+import java.util.List;
+
+import javax.annotation.Resource;
+
+import org.springframework.stereotype.Service;
+
+import com.dailingnan.dao.CinemaDao;
+import com.dailingnan.entity.CinemaBean;
+import com.dailingnan.entity.CinemaDiscuss;
+import com.dailingnan.entity.MoveArrangeBean;
+import com.dailingnan.entity.MoveBean;
+import com.dailingnan.entity.OrderBean;
+import com.dailingnan.entity.OrderItemBean;
+import com.dailingnan.service.CinemaService;
+@Service
+public class CinemaServiceImpl  implements CinemaService{
+	@Resource
+	private CinemaDao cinemaDao;
+	public List<CinemaBean> findCineams() {
+		// TODO Auto-generated method stub
+		return cinemaDao.findCineams();
+	}
+	public List<MoveArrangeBean> findMoveByCinema(int cinemaid,int moveid) {
+		// TODO Auto-generated method stub
+		
+		return cinemaDao.findMoveByCinema(cinemaid, moveid);
+	}
+	public List<OrderItemBean> findSeat(int marrangeid) {
+		// TODO Auto-generated method stub
+		return cinemaDao.findSeat(marrangeid);
+	}
+	public MoveArrangeBean findMoveById(int moveArrangeId) {
+		// TODO Auto-generated method stub
+		return cinemaDao.findMoveById(moveArrangeId);
+	}
+	public OrderBean insertOrder(OrderBean orderBean) {
+		// TODO Auto-generated method stub
+	
+		return cinemaDao.insertOrder(orderBean);
+	}
+	
+	public List<OrderItemBean> findOrderItemByUid(OrderBean order,int marrangeid) {
+		// TODO Auto-generated method stub
+		return cinemaDao.findOrderItemByUid(order, marrangeid);
+	}
+	public void insertOrderByTr() {
+		// TODO Auto-generated method stub
+		
+	}
+	public void insertOrderByTr(OrderBean orderBean, OrderItemBean orderItemBean,int[] cartitem) {
+		// TODO Auto-generated method stub
+	
+		
+	}
+	public List<OrderItemBean> findOrderItemByOid(OrderBean orderBean) {
+		// TODO Auto-generated method stub
+		return cinemaDao.findOrderItemByOid(orderBean);
+	}
+	
+	public void insertOrderItem(OrderItemBean orderItemBean) {
+		// TODO Auto-generated method stub
+		
+		cinemaDao.insertOrderItem(orderItemBean);
+		
+	}
+	public void updateOrderStateByOid(OrderBean orderBean) {
+		// TODO Auto-generated method stub
+		cinemaDao.updateOrderStateByOid(orderBean);
+	}
+	public OrderBean findOrderByoid(int oid) {
+		// TODO Auto-generated method stub
+		
+		return cinemaDao.findOrderByoid(oid);
+	}
+	public List<OrderBean> findOrderByState(int marrangeid) {
+		// TODO Auto-generated method stub
+		return cinemaDao.findOrderByState(marrangeid);
+	}
+	public void updateStateAuto(List<OrderBean> orderBean) {
+		// TODO Auto-generated method stub
+		for (OrderBean orderBean2 : orderBean) {
+			orderBean2.setState(2);
+			cinemaDao.updateStateAuto(orderBean2);
+		}
+	}
+	public CinemaBean findCinemaById(int cinemaId) {
+		// TODO Auto-generated method stub
+		return cinemaDao.findCinemaById(cinemaId);
+	}
+	public List<MoveBean> findMoveByCin(CinemaBean cinema) {
+		// TODO Auto-generated method stub
+		return cinemaDao.findMoveByCin(cinema);
+	}
+	public List<CinemaDiscuss> findCinemaDiscussByCid(int cinemaid) {
+		// TODO Auto-generated method stub
+		return cinemaDao.findCinemaDiscussByCid(cinemaid);
+	}
+	public void insertCinemaDiscuss(CinemaDiscuss cinemaDiscuss) {
+		// TODO Auto-generated method stub
+		cinemaDao.insertCinemaDiscuss(cinemaDiscuss);
+	}
+	
+
+}
