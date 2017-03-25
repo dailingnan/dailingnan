@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dailingnan.dao.IAdminDao">
+
+  <insert id="insertadmin" parameterType="adminBean">
+  	insert into admin
+		(username,password,jibie) values
+		(#{username},#{password},#{jibie})
+  </insert>
+  <select id="selectAdmin" resultType="adminBean" parameterType="adminBean">
+		select * from admin where 1=1
+		<if test="aid != null and aid !=''" ><!--第一个money代表pojo中的属性  -->
+			and aid=#{aid}<!-- 增加money判断条件 -->  
+		</if>
+		<if test="username != null and username !=''" ><!--第一个money代表pojo中的属性  -->
+			and username=#{username}<!-- 增加money判断条件 -->  
+		</if>
+	</select> 
+	 <delete id="deleteAdmin" parameterType="string">
+	 		delete from admin where aid=#{aid}
+	 </delete>
+	 <update id="updateAdmin" parameterType="adminBean">
+	 	update admin set jibie=#{jibie},username=#{username},password=#{password} where aid = #{aid}
+	 </update>
+	  <select id="findById"  parameterType="int"  resultType="com.dailingnan.pojo.AdminBean">
+  	  		select * from admin where aid=#{id}
+  	  </select>
+</mapper>

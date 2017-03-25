@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE configuration  PUBLIC   "-//mybatis.org//DTD Config 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-config.dtd">  
+<configuration>
+	<!-- 懒加载配置 -->
+	<settings>
+		<setting name="lazyLoadingEnabled" value="true"/>
+		<setting name="aggressiveLazyLoading" value="false"/>
+	</settings>
+	<!-- 别名配置 -->    
+    <typeAliases>
+        <!-- 如果还有其余的映射类,则继续添加 -->
+          <typeAlias type="com.dailingnan.bean.UserBean" alias="user"/>
+          <typeAlias type="com.dailingnan.bean.OrderBean" alias="order"/>
+    </typeAliases>
+</configuration> 

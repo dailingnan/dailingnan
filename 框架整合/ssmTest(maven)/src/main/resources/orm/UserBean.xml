@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dailingnan.dao.IUserDao">
+	<!--查询用户-->
+  	  <select id="findUser" parameterType="com.dailingnan.bean.UserBean" resultType="com.dailingnan.bean.UserBean">
+  	  		select * from user where username=#{username} and pwd=#{pwd}
+  	  </select>
+  	  <select id="findAllUser" resultType="user">
+  	  		select * from user
+  	  </select>
+  	  
+</mapper>
+
+   
+
+   
+
+    
+   
